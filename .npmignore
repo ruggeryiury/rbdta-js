@@ -2,6 +2,7 @@ assets/
 node_modules/
 src/
 tests/
+packages/
 .gitignore
 .npmignore
 eslint.config.js
