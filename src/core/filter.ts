@@ -1,4 +1,5 @@
-import { formatStringFromDTA, omitLeadingArticle, rankCalculator, useDefaultOptions, type RankTypes } from '../lib.js'
+import setDefaultOptions from 'set-default-options'
+import { formatStringFromDTA, omitLeadingArticle, rankCalculator, type RankTypes } from '../lib.js'
 import type { DTAFile, DTAFileWithIndex } from './dta.js'
 import { dtaLocale, type InstrRankingNumbers } from './locale.js'
 import { sortDTA } from './sort.js'
@@ -94,7 +95,7 @@ export interface SongFilteringResultsObject {
 
 // #region Title
 export const filterSongsByTitle = (songs: DTAFile[], options?: SongFilterOptions): SongFilteringResultsObject => {
-  const opts = useDefaultOptions<SongFilterOptions, true>(
+  const opts = setDefaultOptions<SongFilterOptions>(
     {
       keysSupport: null,
       proGtrBassSupport: null,
@@ -136,7 +137,7 @@ export const filterSongsByTitle = (songs: DTAFile[], options?: SongFilterOptions
 
 // #region Genre
 export const filterSongsByGenre = (songs: DTAFile[], options?: SongFilterOptions): SongFilteringResultsObject => {
-  const opts = useDefaultOptions<SongFilterOptions, true>(
+  const opts = setDefaultOptions<SongFilterOptions>(
     {
       keysSupport: null,
       proGtrBassSupport: null,
@@ -182,7 +183,7 @@ export interface SongFilterWithInstrOptions extends SongFilterOptions {
 
 // #region Song Diff
 export const filterSongsBySongDifficulty = (songs: DTAFile[], options?: SongFilterWithInstrOptions): SongFilteringResultsObject => {
-  const opts = useDefaultOptions<SongFilterWithInstrOptions, true>(
+  const opts = setDefaultOptions<SongFilterWithInstrOptions>(
     {
       keysSupport: null,
       proGtrBassSupport: null,
@@ -227,7 +228,7 @@ export const filterSongsBySongDifficulty = (songs: DTAFile[], options?: SongFilt
 
 // #region Author
 export const filterSongsByAuthor = (songs: DTAFile[], options?: SongFilterOptions): SongFilteringResultsObject => {
-  const opts = useDefaultOptions<SongFilterOptions, true>(
+  const opts = setDefaultOptions<SongFilterOptions>(
     {
       keysSupport: null,
       proGtrBassSupport: null,
@@ -274,7 +275,7 @@ export const filterSongsByAuthor = (songs: DTAFile[], options?: SongFilterOption
 
 //#region Year Released
 export const filterSongsByYearReleased = (songs: DTAFile[], options?: SongFilterOptions): SongFilteringResultsObject => {
-  const opts = useDefaultOptions<SongFilterOptions, true>(
+  const opts = setDefaultOptions<SongFilterOptions>(
     {
       keysSupport: null,
       proGtrBassSupport: null,
@@ -347,7 +348,7 @@ export interface ArtistFilteringResultsObject {
 
 // #region Artist
 export const filterSongsByArtist = (songs: DTAFile[], options?: SongFilterWithAlbumThresholdOptions): ArtistFilteringResultsObject => {
-  const opts = useDefaultOptions<SongFilterWithAlbumThresholdOptions, true>(
+  const opts = setDefaultOptions<SongFilterWithAlbumThresholdOptions>(
     {
       albumQuantityThreshold: 3,
       keysSupport: null,

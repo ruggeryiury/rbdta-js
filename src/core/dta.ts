@@ -240,25 +240,25 @@ export interface DTAFile {
   base_points?: number
   /**
    * The loading phrase that will appear on the loading screen.
-   * 
+   *
    * _This value only works on Rock Band 3 Deluxe_.
    */
   loading_phrase?: string
   /**
    * The PRO Guitar/Bass chart author(s).
-   * 
+   *
    * _This value only works on Rock Band 3 Deluxe_.
    */
   strings_author?: string
   /**
    * The Basic Keys and PRO Keys chart author(s).
-   * 
+   *
    * _This value only works on Rock Band 3 Deluxe_.
    */
   keys_author?: string
   /**
    * The chart author(s) of the song.
-   * 
+   *
    * _This value only works on Rock Band 3 Deluxe_.
    */
   author?: string

@@ -1,5 +1,5 @@
+import setDefaultOptions from 'set-default-options'
 import type { DTAFile } from '../core.js'
-import { useDefaultOptions } from '../lib.js'
 
 export const articles = ['a', 'an', 'the'] as const
 
@@ -124,7 +124,7 @@ export const formatStringFromDTA = (song: DTAFile | null, format: string, option
       trim: true,
     }
 
-  const { azNumOnly, forceCase, normalizeNFD, removeSpaces, trim } = useDefaultOptions<StringFormatterOptions, true>(
+  const { azNumOnly, forceCase, normalizeNFD, removeSpaces, trim } = setDefaultOptions<StringFormatterOptions>(
     {
       azNumOnly: false,
       forceCase: null,

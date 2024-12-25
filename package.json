@@ -1,8 +1,8 @@
 {
   "name": "rbdta-js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "private": true,
-  "description": "A Rock Band song metadata file parser written in Javascript",
+  "description": "A Rock Band song metadata file parser written in Javascript.",
   "homepage": "https://github.com/ruggeryiury/rbdta-js#readme",
   "repository": "github:ruggeryiury/rbdta-js",
   "type": "module",
@@ -40,7 +40,8 @@
   },
   "dependencies": {
     "jschardet": "^3.1.4",
-    "path-js": "link:..\\path-js"
+    "path-js": "file:./packages/path-js-1.5.0.tgz",
+    "set-default-options": "file:./packages/set-default-options-1.0.0.tgz"
   },
   "devDependencies": {
     "@types/node": "^22.9.1",

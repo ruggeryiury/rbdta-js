@@ -1,6 +1,7 @@
 import Path from 'path-js'
+import setDefaultOptions from 'set-default-options'
 import { type DTAStringifyOptions, type PartialDTAFile, depackDTA, parseDTA, type SongSortingTypes, sortDTA, stringifyDTA, type DTARecord } from '../core.js'
-import { detectBufferEncoding, isURL, useDefaultOptions } from '../lib.js'
+import { detectBufferEncoding, isURL } from '../lib.js'
 
 export type SongUpdatesConstructorContentTypes = string | Buffer | PartialDTAFile | PartialDTAFile[] | Path
 export type SongUpdatesStringifyOptions = Pick<DTAStringifyOptions, 'allSongsInline' | 'sortBy'>
@@ -110,7 +111,7 @@ export class SongUpdatesDTA {
    * @returns {string}
    */
   stringify(options?: SongUpdatesStringifyOptions): string {
-    const opts = useDefaultOptions<SongUpdatesStringifyOptions, true>(
+    const opts = setDefaultOptions<SongUpdatesStringifyOptions>(
       {
         allSongsInline: false,
         sortBy: null,

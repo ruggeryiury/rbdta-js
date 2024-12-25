@@ -1,5 +1,6 @@
+import setDefaultOptions from 'set-default-options'
 import { dtaDefault, sortDTAMap, type DTAFile, type DTAMap, type PartialDTAFile } from '../core.js'
-import { customSourceIfdefDeconstructor, isDTAFile, isTracksCountEmpty, slashQToQuote, useDefaultOptions } from '../lib.js'
+import { customSourceIfdefDeconstructor, isDTAFile, isTracksCountEmpty, slashQToQuote } from '../lib.js'
 
 export type DTAContentParserFormatTypes = 'complete' | 'partial'
 
@@ -44,7 +45,7 @@ export interface DTAContentParserOptions {
  * @returns {DTAMap} The song parsed as a `DTAFile` Map object.
  */
 export const parseDTA = (song: string, options?: DTAContentParserOptions): DTAMap => {
-  const opts = useDefaultOptions<DTAContentParserOptions, true>(
+  const opts = setDefaultOptions<DTAContentParserOptions>(
     {
       format: 'complete',
       omitUnusedValues: true,

@@ -1,5 +1,6 @@
+import setDefaultOptions from 'set-default-options'
 import { depackDTA, dtaLocale, sortDTA, type DTAMap, type PartialDTAFile, type SongSortingTypes, type UnformattedPartialDTAFile } from '../core.js'
-import { addTabToAllLines, genTracksCountArray, isDTAFile, renderAnimTempo, renderArray, renderBooleanValue, renderCustomAttributes, renderDrumsCue, renderIfDef, renderNumberOrStringValue, renderSongEntryClose, renderSongEntryOpen, renderStringOnQuotesValue, renderTrackMap, useDefaultOptions } from '../lib.js'
+import { addTabToAllLines, genTracksCountArray, isDTAFile, renderAnimTempo, renderArray, renderBooleanValue, renderCustomAttributes, renderDrumsCue, renderIfDef, renderNumberOrStringValue, renderSongEntryClose, renderSongEntryOpen, renderStringOnQuotesValue, renderTrackMap } from '../lib.js'
 
 export class DTAString {
   /**
@@ -350,7 +351,7 @@ export interface DTAStringifyOptions {
  * @returns {string} The generated DTA file contents.
  */
 export const stringifyDTA = (songs: PartialDTAFile | PartialDTAFile[], type: DTAStringifyTypes = 'songs', options?: DTAStringifyOptions): string => {
-  const opts = useDefaultOptions<DTAStringifyOptions, true>(
+  const opts = setDefaultOptions<DTAStringifyOptions>(
     {
       guitarCores: false,
       ignoreFakeSongs: false,

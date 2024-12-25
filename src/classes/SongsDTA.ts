@@ -1,6 +1,7 @@
 import Path from 'path-js'
+import setDefaultOptions from 'set-default-options'
 import { type DTAFile, depackDTA, parseDTA, type DTARecord, type SongSortingTypes, sortDTA, stringifyDTA, type DTAStringifyOptions, type PartialDTAFile } from '../core.js'
-import { detectBufferEncoding, isDTAFile, isURL, genNumericSongID, useDefaultOptions, checkSongEncoding } from '../lib.js'
+import { detectBufferEncoding, isDTAFile, isURL, genNumericSongID, checkSongEncoding } from '../lib.js'
 
 export type SongConstructorContentTypes = string | Buffer | DTAFile | DTAFile[] | Path
 export type SongStringifyOptions = Pick<DTAStringifyOptions, 'format' | 'guitarCores' | 'placeCustomAttributes' | 'placeRB3DXAttributes' | 'sortBy' | 'wiiMode' | 'ignoreFakeSongs' | 'customSource' | 'autoGeneratePansAndVols'>
@@ -149,7 +150,7 @@ export class SongsDTA {
    * @returns {string}
    */
   stringify(options?: SongStringifyOptions): string {
-    const opts = useDefaultOptions<SongStringifyOptions, true>(
+    const opts = setDefaultOptions<SongStringifyOptions>(
       {
         format: 'rbn',
         guitarCores: false,
@@ -159,7 +160,7 @@ export class SongsDTA {
         wiiMode: null,
         ignoreFakeSongs: true,
         customSource: null,
-        autoGeneratePansAndVols: true
+        autoGeneratePansAndVols: true,
       },
       options
     )
