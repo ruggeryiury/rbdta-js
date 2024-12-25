@@ -14,6 +14,8 @@ export class SongUpdatesDTA {
   /** An array with object that represents the contents of a DTA updates song entry. */
   updates: PartialDTAFile[] = []
 
+  // #region Constructor
+
   /**
    * @param {SongUpdatesConstructorContentTypes} content A path to a `songs_updates.dta` file (as `string` or an instantiated [`Path`](https://github.com/ruggeryiury/path-js) class), the contents of a DTA update file (as `string`), a `Buffer` object of a DTA update file, a `DTAUpdateOptions` object, or an array of `DTAUpdateOptions` objects.
    */
@@ -48,6 +50,8 @@ export class SongUpdatesDTA {
     this.updates = depackedSongs.map((songContent) => Object.fromEntries(parseDTA(songContent, { format: 'partial', omitUnusedValues: false, registerCores: true })) as DTARecord as PartialDTAFile)
   }
 
+  // #region Static Methods
+
   /**
    * Asynchronously fetches a `songs_updates.dta` file from an URL.
    * - - - -
@@ -69,6 +73,8 @@ export class SongUpdatesDTA {
       throw err
     }
   }
+
+  // #region Class Methods
 
   /**
    * Fetches a specific song updates contents based on its song ID. If no song if found, it will returns as `undefined`.

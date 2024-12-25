@@ -12,9 +12,7 @@
     - [Class properties](#class-properties)
     - [Static methods](#static-methods)
       - [`fromURL()`](#fromurl)
-      - [`fromRecipes()`](#fromrecipes)
-      - [`genNumericalSongID()`](#gennumericalsongid)
-    - [`genRecipes()`](#genrecipes)
+  - [Class methods](#class-methods)
     - [`getSongByID()`](#getsongbyid)
     - [`patchSongIDs()`](#patchsongids)
     - [`patchEncodings()`](#patchencodings)
@@ -84,77 +82,7 @@ const songs = await SongsDTA.fromURL(songsDTAURL)
 
 console.log(songs.getSongByID('7748motherearth')!.name) // <-- "Mother Earth"
 ```
-
-#### `fromRecipes()`
-
-Returns a new `SongsDTA` instance from complete songs' recipes.
-
-- Parameters:
-
-  - **_recipes_** `DTAFileRecipe | DTAFileRecipe[]` A `DTAFileRecipe` object, or an array of `DTAFileRecipe` objects.
-
-- Returns: `Promise<SongsDTA>` A new instantiated `SongsDTA` class.
-
-```ts
-import { SongsDTA, type DTAFile } from 'rbdta-js'
-
-// A song recipe is very much like the DTAFile interface,
-// but declaring human-readable values to keys
-const songRecipe = {
-  id: '7748motherearth',
-  name: 'Mother Earth',
-  artist: 'Keiichi Suzuki & Hirokazu Tanaka',
-  master: true,
-  song_id: 1774800033,
-  songname: '7748motherearth',
-  tracks: {
-    drum: { rank: 0, channels: 2 },
-    bass: { rank: 1, real_rank: 1, channels: 1 },
-    guitar: { rank: 2, real_rank: 2, channels: 1, pans: [-0.2] },
-    keys: { rank: 0, real_rank: 0, channels: 1, pans: [0.2] },
-    backing: 2,
-  },
-  anim_tempo: 16,
-  preview: 18668,
-  song_length: 119477,
-  rank_band: 0,
-  rating: 1,
-  genre: { genre: 'Pop/Dance/Electronic', sub_genre: 'Chiptune' },
-  year_released: 1989,
-  album: {
-    hasArt: true,
-    name: 'MOTHER (Original Soundtrack)',
-    track_number: 1,
-  },
-  key: 'G',
-  multitrack: true,
-  author: 'Ruggy',
-  pack_name: 'MOTHER Pack 01',
-} satisfies DTAFile
-
-const songs = SongsDTA.fromRecipes(songRecipe)
-
-console.log(songs.getSongByID('7748motherearth')!.name) // <-- "Mother Earth"
-```
-
-#### `genNumericalSongID()`
-
-Generates a numberic song ID based on any non-numeric string. If the given value is already a number, it will simply return the provided ID.
-
-[_See the original C# function on **GitHub Gist**_](https://gist.github.com/InvoxiPlayGames/f0de3ad707b1d42055c53f0fd1428f7f), coded by [Emma (InvoxiPlayGames)](https://gist.github.com/InvoxiPlayGames).
-
-```ts
-import { SongsDTA } from 'rbdta-js'
-
-const nonNumericalSongID = 'example'
-console.log(SongsDTA.genNumbericalSongID(nonNumericalSongID))
-```
-
-### `genRecipes()`
-
-Creates an array of `DTAFileRecipe` objects from each songs entry of this class.
-
-- Returns: `DTAFileRecipe[]`
+## Class methods
 
 ### `getSongByID()`
 
@@ -404,5 +332,4 @@ console.log(updates.stringify({ allSongsInline: true }))
 
 - [RBTools-JS](https://github.com/ruggeryiury/rbtools-js): A highly typed module package to manipulate several Rock Band game files.
 - [My Customs Projects](https://github.com/ruggeryiury/ruggy-customs-projects): All my customs projects.
-- [C3 Library Patch](https://github.com/ruggeryiury/c3-library-patch): A metadata patch for many released customs.
 - [PRO Guitar/Bass Guide](https://ruggeryiury.github.io/proguitarbass-guide/): My famous PRO Guitar/Bass guide.

@@ -28,7 +28,7 @@ export class SongsDTA {
       str = buf.toString(enc)
     } else if (typeof content === 'string') {
       if (Path.isPath(content)) {
-        const path = new Path(content)
+        const path = Path.stringToPath(content)
         if (!path.exists()) throw new Error(`SongsDTAError: Provided path "${path.path}" does not exists.`)
         const buf = path.readFileSync()
         const enc = detectBufferEncoding(buf)
@@ -79,7 +79,7 @@ export class SongsDTA {
     }
   }
 
-  // #region Methods
+  // #region Class Methods
 
   /**
    * Returns a specific song contents based on its song ID (shortname). If no song if found, it will returns as `undefined`.
