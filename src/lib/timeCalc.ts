@@ -1,3 +1,5 @@
+import { RBDTAJSError } from '../errors.js'
+
 /**
  * Converts milliseconds to formatted `HH:MM:SS` time string.
  * - - - -
@@ -40,7 +42,7 @@ export const timeStringToMilliseconds = (timeString: string): number => {
     const totalMilliseconds = (minutes * 60 + seconds) * 1000
     return totalMilliseconds
   } else {
-    throw new Error('Invalid time format. Expected either "HH:MM:SS" or "MM:SS".')
+    throw new RBDTAJSError('Invalid time format. Expected either "HH:MM:SS" or "MM:SS".')
   }
 }
 

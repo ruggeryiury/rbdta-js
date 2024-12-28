@@ -1,6 +1,7 @@
 import Path from 'path-js'
 import setDefaultOptions from 'set-default-options'
 import { type DTAStringifyOptions, type PartialDTAFile, depackDTA, parseDTA, type SongSortingTypes, sortDTA, stringifyDTA, type DTARecord } from '../core.js'
+import { RBDTAJSError } from '../errors.js'
 import { detectBufferEncoding, isURL } from '../lib.js'
 
 export type SongUpdatesConstructorContentTypes = string | Buffer | PartialDTAFile | PartialDTAFile[] | Path
@@ -23,14 +24,14 @@ export class SongUpdatesDTA {
     let str = ''
     let isAnyObject = false
     if (content instanceof Path) {
-      if (!content.exists()) throw new Error(`SongsDTAError: Provided path "${content.path}" does not exists.`)
+      if (!content.exists()) throw new RBDTAJSError(`Provided path "${content.path}" does not exists.`)
       const buf = content.readFileSync()
       const enc = detectBufferEncoding(buf)
       str = buf.toString(enc)
     } else if (typeof content === 'string') {
       if (Path.isPath(content)) {
         const path = new Path(content)
-        if (!path.exists()) throw new Error(`SongsDTAError: Provided path "${path.path}" does not exists.`)
+        if (!path.exists()) throw new RBDTAJSError(`Provided path "${path.path}" does not exists.`)
         const buf = path.readFileSync()
         const enc = detectBufferEncoding(buf)
         str = buf.toString(enc)
@@ -59,12 +60,12 @@ export class SongUpdatesDTA {
    * @returns {Promise<SongUpdatesDTA>} A new instantiated `SongUpdatesDTA` class.
    */
   static async fromURL(url: string): Promise<SongUpdatesDTA> {
-    if (!isURL(url)) throw new Error(`SongsDTAError: Provided URL "${url}" is not a valid URL.`)
+    if (!isURL(url)) throw new RBDTAJSError(`Provided URL "${url}" is not a valid URL.`)
 
     try {
       const response = await fetch(url)
 
-      if (!response.ok) throw new Error(`SongsDTAError: Provided URL "${url}" is not a valid URL.`)
+      if (!response.ok) throw new RBDTAJSError(`Provided URL "${url}" is not a valid URL.`)
 
       const data = await response.arrayBuffer()
       return new SongUpdatesDTA(Buffer.from(data))

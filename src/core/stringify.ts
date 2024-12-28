@@ -1,5 +1,6 @@
 import setDefaultOptions from 'set-default-options'
 import { depackDTA, dtaLocale, sortDTA, type DTAMap, type PartialDTAFile, type SongSortingTypes, type UnformattedPartialDTAFile } from '../core.js'
+import { RBDTAJSError } from '../errors.js'
 import { addTabToAllLines, genTracksCountArray, isDTAFile, renderAnimTempo, renderArray, renderBooleanValue, renderCustomAttributes, renderDrumsCue, renderIfDef, renderNumberOrStringValue, renderSongEntryClose, renderSongEntryOpen, renderStringOnQuotesValue, renderTrackMap } from '../lib.js'
 
 export class DTAString {
@@ -87,7 +88,7 @@ export class DTAString {
       if (this.opts.ignoreFakeSongs && song.fake === true) break
 
       // <-- Basic object check to assert stringify type
-      if (this.type === 'songs' && !isDTAFile(song)) throw new Error('Tried to stringify a complete song with incomplete information required for a song to work in-game.')
+      if (this.type === 'songs' && !isDTAFile(song)) throw new RBDTAJSError('Tried to stringify a complete song with incomplete information required for a song to work in-game.')
 
       const allValuesKeys = Object.keys(song) as (keyof PartialDTAFile)[]
 
@@ -119,7 +120,7 @@ export class DTAString {
         content += addTabToAllLines(renderSongEntryOpen('song', format))
         if (song.songname !== undefined) {
           if (this.opts.wiiMode !== null) {
-            if (this.opts.wiiMode.slot % 2 === 0) throw new Error(`ERROR: Provided slot number is not an odd positive number. Given number: ${this.opts.wiiMode.slot.toString()}`)
+            if (this.opts.wiiMode.slot % 2 === 0) throw new RBDTAJSError(`Provided Wii mode slot number is not an odd positive number. Given number: ${this.opts.wiiMode.slot.toString()}`)
             content += addTabToAllLines(renderStringOnQuotesValue('name', `dlc/${this.opts.wiiMode.gen}/${this.opts.wiiMode.slot.toString().padStart(3, '0')}/content/songs/${song.songname}/${song.songname}`, format), 2)
           } else content += addTabToAllLines(renderStringOnQuotesValue('name', `songs/${song.songname}/${song.songname}`, format), 2)
         }

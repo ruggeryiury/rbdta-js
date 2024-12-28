@@ -1,5 +1,6 @@
 import setDefaultOptions from 'set-default-options'
 import { dtaDefault, sortDTAMap, type DTAFile, type DTAMap, type PartialDTAFile } from '../core.js'
+import { RBDTAJSError } from '../errors.js'
 import { customSourceIfdefDeconstructor, isDTAFile, isTracksCountEmpty, slashQToQuote } from '../lib.js'
 
 export type DTAContentParserFormatTypes = 'complete' | 'partial'
@@ -443,7 +444,7 @@ export const parseDTA = (song: string, options?: DTAContentParserOptions): DTAMa
 
   if (opts.format === 'complete' && !newDTA.has('rating')) newDTA.set('rating', 4)
 
-  if (opts.format === 'complete' && !isDTAFile(Object.fromEntries(newDTA))) throw new Error(`SongsDTAError: Tried to parse songs with complete information but all necessary values were not found. Try to use "DTASongUpdatesParser()" function instead.`)
+  if (opts.format === 'complete' && !isDTAFile(Object.fromEntries(newDTA))) throw new RBDTAJSError(`Tried to parse songs with complete information but all necessary values were not found. Try to use "DTASongUpdatesParser()" function instead.`)
 
   const defaultValuesObject = dtaDefault()
 

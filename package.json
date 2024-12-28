@@ -1,6 +1,6 @@
 {
   "name": "rbdta-js",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "private": true,
   "description": "A Rock Band song metadata file parser written in Javascript.",
   "homepage": "https://github.com/ruggeryiury/rbdta-js#readme",

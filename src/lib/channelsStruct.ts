@@ -1,4 +1,5 @@
 import type { DTAFile, DTATracksCountArray } from '../core.js'
+import { RBDTAJSError } from '../errors.js'
 
 export interface AudioTracksCountObject {
   /**
@@ -65,7 +66,7 @@ export const genTracksCountArray = (tracksCount: DTATracksCountArray): AudioTrac
       case 6:
         return [-1, 1, -1, 1, -1, 1]
       default:
-        throw new Error(`INTERNAL ERROR: Track count must be from 1 to 6, received ${channelCount.toString()}`)
+        throw new RBDTAJSError(`Track count must be from 1 to 6, received ${channelCount.toString()}`)
     }
   }
   const [allDrum, bass, guitar, vocals, keys, backing, crowd] = tracksCount

@@ -1,6 +1,7 @@
 import Path from 'path-js'
 import setDefaultOptions from 'set-default-options'
 import { type DTAFile, depackDTA, parseDTA, type DTARecord, type SongSortingTypes, sortDTA, stringifyDTA, type DTAStringifyOptions, type PartialDTAFile } from '../core.js'
+import { RBDTAJSError } from '../errors.js'
 import { detectBufferEncoding, isDTAFile, isURL, genNumericSongID, checkSongEncoding } from '../lib.js'
 
 export type SongConstructorContentTypes = string | Buffer | DTAFile | DTAFile[] | Path
@@ -22,14 +23,14 @@ export class SongsDTA {
     let str = ''
     let isAnyObject = false
     if (content instanceof Path) {
-      if (!content.exists()) throw new Error(`SongsDTAError: Provided path "${content.path}" does not exists.`)
+      if (!content.exists()) throw new RBDTAJSError(`Provided path "${content.path}" does not exists.`)
       const buf = content.readFileSync()
       const enc = detectBufferEncoding(buf)
       str = buf.toString(enc)
     } else if (typeof content === 'string') {
       if (Path.isPath(content)) {
         const path = Path.stringToPath(content)
-        if (!path.exists()) throw new Error(`SongsDTAError: Provided path "${path.path}" does not exists.`)
+        if (!path.exists()) throw new RBDTAJSError(`Provided path "${path.path}" does not exists.`)
         const buf = path.readFileSync()
         const enc = detectBufferEncoding(buf)
         str = buf.toString(enc)
@@ -40,7 +41,7 @@ export class SongsDTA {
       isAnyObject = true
       for (const song of content) {
         if (isDTAFile(song)) this.songs.push(song)
-        else throw new Error('SongsDTAError: Tried to parse songs with complete information but all necessary values were not found. Try to use "SongsUpdatesDTA" class instead.')
+        else throw new RBDTAJSError('Tried to parse songs with complete information but all necessary values were not found. Try to use "SongsUpdatesDTA" class instead.')
       }
     } else if (Buffer.isBuffer(content)) {
       const enc = detectBufferEncoding(content)
@@ -48,7 +49,7 @@ export class SongsDTA {
     } else if (isDTAFile(content)) {
       isAnyObject = true
       this.songs.push(content)
-    } else throw new Error('SongsDTAError: Tried to parse songs with complete information but provided object does not match any of the available file types.')
+    } else throw new RBDTAJSError('Tried to parse songs with complete information but provided object does not match any of the available file types.')
 
     if (isAnyObject && !str) return
 
@@ -64,12 +65,12 @@ export class SongsDTA {
    * @returns {Promise<SongsDTA>} A new instantiated `SongsDTA` class.
    */
   static async fromURL(url: string): Promise<SongsDTA> {
-    if (!isURL(url)) throw new Error(`SongsDTAError: Provided URL "${url}" is not a valid URL.`)
+    if (!isURL(url)) throw new RBDTAJSError(`Provided URL "${url}" is not a valid URL.`)
 
     try {
       const response = await fetch(url)
 
-      if (!response.ok) throw new Error(`SongsDTAError: Provided URL "${url}" is not a valid URL.`)
+      if (!response.ok) throw new RBDTAJSError(`Provided URL "${url}" is not a valid URL.`)
 
       const data = await response.arrayBuffer()
       return new SongsDTA(Buffer.from(data))

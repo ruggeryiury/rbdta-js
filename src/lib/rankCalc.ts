@@ -1,4 +1,5 @@
 import type { DTAFile, InstrRankingNames, InstrRankingNumbers } from '../core.js'
+import { RBDTAJSError } from '../errors.js'
 
 const ranksMap = {
   drum: [124, 151, 178, 242, 345, 448],
@@ -101,7 +102,7 @@ export const genInstrumentRankingObject = (ranks: DTARankObject): DTARankObjectR
     } else allInstrCount++
   }
 
-  if (allInstrCount === 0 || playableInstrCount === 0) throw new Error('INTERNAL ERROR: Song must have at least one instrument to calculate rank.')
+  if (allInstrCount === 0 || playableInstrCount === 0) throw new RBDTAJSError('Song must have at least one instrument to calculate rank.')
 
   const { band, bass, drum, guitar, keys, real_bass, real_guitar, real_keys, vocals } = ranks
 
