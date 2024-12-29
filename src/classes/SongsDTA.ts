@@ -1,7 +1,7 @@
 import Path from 'path-js'
 import setDefaultOptions from 'set-default-options'
 import { type DTAFile, depackDTA, parseDTA, type DTARecord, type SongSortingTypes, sortDTA, stringifyDTA, type DTAStringifyOptions, type PartialDTAFile } from '../core.js'
-import { RBDTAJSError } from '../errors.js'
+import { RBDTAJSError, WrongDTATypeError } from '../errors.js'
 import { detectBufferEncoding, isDTAFile, isURL, genNumericSongID, checkSongEncoding } from '../lib.js'
 
 export type SongConstructorContentTypes = string | Buffer | DTAFile | DTAFile[] | Path
@@ -41,7 +41,7 @@ export class SongsDTA {
       isAnyObject = true
       for (const song of content) {
         if (isDTAFile(song)) this.songs.push(song)
-        else throw new RBDTAJSError('Tried to parse songs with complete information but all necessary values were not found. Try to use "SongsUpdatesDTA" class instead.')
+        else throw new WrongDTATypeError('Tried to parse songs with complete information but all necessary values were not found. Try using "SongsUpdatesDTA" class instead.')
       }
     } else if (Buffer.isBuffer(content)) {
       const enc = detectBufferEncoding(content)
@@ -49,7 +49,7 @@ export class SongsDTA {
     } else if (isDTAFile(content)) {
       isAnyObject = true
       this.songs.push(content)
-    } else throw new RBDTAJSError('Tried to parse songs with complete information but provided object does not match any of the available file types.')
+    } else throw new RBDTAJSError('Tried to parse songs but the provided argument does not match any of the available DTA file types.')
 
     if (isAnyObject && !str) return
 

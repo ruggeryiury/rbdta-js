@@ -34,6 +34,9 @@
     "./core": {
       "import": "./dist/core.js"
     },
+    "./errors": {
+      "import": "./dist/errors.js"
+    },
     "./lib": {
       "import": "./dist/lib.js"
     }
