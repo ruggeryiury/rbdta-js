@@ -314,7 +314,9 @@ export type DTAFileWithIndex = DTAFile & {
   index: number
 }
 
-export type UnformattedDTAFile = DTAFile & {
+export type AcceptedUnformattedDTAKeys = 'game_origin' | 'genre' | 'sub_genre'
+
+export type UnformattedDTAFile = Omit<DTAFile, AcceptedUnformattedDTAKeys> & {
   /**
    * The game origin of the song.
    *
@@ -331,7 +333,7 @@ export type UnformattedDTAFile = DTAFile & {
   sub_genre?: LiteralUnion<SongSubGenre, string>
 }
 
-export type UnformattedPartialDTAFile = PartialDTAFile & {
+export type UnformattedPartialDTAFile = Omit<PartialDTAFile, AcceptedUnformattedDTAKeys> & {
   /**
    * The game origin of the song.
    *
